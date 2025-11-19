@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  ubuntu1:
+    build: .
+    container_name: ubuntu1
+    ports:
+      - "2201:22"
+    restart: unless-stopped
+
+  ubuntu2:
+    build: .
+    container_name: ubuntu2
+    ports:
+      - "2202:22"
+    restart: unless-stopped
+
+  ubuntu3:
+    build: .
+    container_name: ubuntu3
+    ports:
+      - "2203:22"
+    restart: unless-stopped
+
+  ubuntu4:
+    build: .
+    container_name: ubuntu4
+    ports:
+      - "2204:22"
+    restart: unless-stopped
+
+  ubuntu5:
+    build: .
+    container_name: ubuntu5
+    ports:
+      - "2205:22"
+    restart: unless-stopped

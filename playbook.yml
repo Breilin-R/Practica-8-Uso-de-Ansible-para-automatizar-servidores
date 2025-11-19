@@ -1,0 +1,47 @@
+---
+- name: Playbook - preparar servidores ubuntu
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+
+    - name: Actualizar cache de apt
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Actualizar paquetes (upgrade)
+      apt:
+        upgrade: dist
+
+    - name: Crear usuario itla
+      user:
+        name: itla
+        comment: "Usuario ITLA"
+        shell: /bin/bash
+        create_home: yes
+        state: present
+
+    - name: Crear carpeta /home/itla/app
+      file:
+        path: /home/itla/app
+        state: directory
+        owner: itla
+        group: itla
+        mode: '0755'
+
+    - name: Crear archivo hola.txt dentro de la carpeta app
+      copy:
+        dest: /home/itla/app/hola.txt
+        content: "Hola desde Ansible en {{ inventory_hostname }}\n"
+        owner: itla
+        group: itla
+        mode: '0644'
+
+    - name: Instalar cowsay y htop
+      apt:
+        name:
+          - cowsay
+          - htop
+        state: latest
+        update_cache: yes
